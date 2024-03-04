@@ -1,4 +1,5 @@
 import sqlite3
+from tkinter import messagebox
 from expense import Expense, input_variables
 from datetime import datetime
 
@@ -40,10 +41,11 @@ def add_expense(date, name, category, description, amount):
 ''', (expense.date, expense.name, expense.category, expense.description, expense.amount))
     
     conn.commit()
-    print("Expense addes successfully.")
     conn.close()
 
+    messagebox.showinfo("Success", "Expense added successfully.")
 
+    
 def updateExpense(date, name, category, description, amount, id):
     expense = Expense(date, name, category, description, amount)
     conn = sqlite3.connect('expense_tracker.db')
@@ -52,16 +54,19 @@ def updateExpense(date, name, category, description, amount, id):
                 (expense.date, expense.name, expense.category, expense.description, expense.amount))
     
     conn.commit()
-    print('Expense updated successfully!')
     conn.close()
+
+    messagebox.showinfo("Success", "Expense Updated successfully.")
 
 def deleteExpense(id):
     conn = sqlite3.connect('expense_tracker.db')
     cou = conn.cursor() 
     cou.execute("DELETE FROM expenses WHERE ID = ?", (id,))
+
     conn.commit()
-    print("The Expense deleted succesfully!!")
     conn.close()
+
+    messagebox.showinfo("Success", "Expense Deleted successfully.")
 
 
 def calculate_totals():

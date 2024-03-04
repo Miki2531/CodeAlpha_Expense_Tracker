@@ -1,1 +1,3 @@
 # CodeAlpha_Expense_Tracker
+
+Expense Tracker is a tool or application designed to help individuals or businesses keep track of their expense. In this project focus on Perosnal Expense Tracker, it trackes or catagorize expenditures, providing where money is being spent and allowing better financial management. Recording Expense, user input details about their expenses into the track and catagorize into diffrenet groups.

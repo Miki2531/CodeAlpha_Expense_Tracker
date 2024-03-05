@@ -1,4 +1,5 @@
 import csv
+import ast
 from expense import input_variables
 
 #Initialize csv
@@ -8,29 +9,32 @@ CSV_FILE = "expense.csv"
 def create_csv():
     try:
         with open(CSV_FILE, mode='x', newline='') as file:
-            writer = csv.writer(file)
+            writer = csv.writer(file, delimiter='\t')
             writer.writerow(['Date', 'Name', 'Category', 'Descriptions', 'Amount'])
 
     except FileExistsError:
         print("The file already Exists.")
 
 
-def add_expense(date, name, category, description, amount):
+def add_expense(input_variables):
     with open(CSV_FILE, mode='a', newline='') as file:
         writer = csv.writer(file)
-        writer.writerow([date, name, category, description, amount])
+        writer.writerow([input_variables])
 
 def add_expense_menu():
-    add_expense_menu(input_variables)
+    add_expense(input_variables())
     print("Expense added successfully!!")
 
 def view_expense():
     with open(CSV_FILE, mode='r', newline='') as file:
         reader = csv.reader(file)
-        next(reader)
+        header = next(reader)
 
-        for row in reader:
-            print(f"Date: {row[1]}, Name: {row[2]},  Category:{row[3]}, Description:{row[4]}, Amount:{row[5]}")
+        for index, row in enumerate(reader, start=1):
+             expense_data = ast.literal_eval(row[0])
+             expense_date, expense_name, expense_category, expense_description, expense_amount = expense_data
+             # Print the formatted expense information
+             print(f"Index: {index}, Date: {expense_date}, Name: {expense_name}, Category: {expense_category}, Description: {expense_description}, Amount: {expense_amount}")
 
 def calculate_totals():
     daily = 0.0
@@ -59,22 +63,22 @@ def calculate_totals():
 def main():
     while True:
         print("\nPersonal Expense Tracker")
-        print("1. Add Expense")
-        print("2. View Expense")
-        print("3. Calculate Totals")
-        print("4. Exit")
+        print("1. Create CSV")
+        print("2, Add Expense ")
+        print("3. View Expense")
+        print("4. Calculate Totals")
+        print("5. Exit")
 
         choice = int(input("Enter your choice: "))
         if choice == 1:
-            #Adding your expense
-            add_expense(input_variables)
-            print("Expense Added successfuly!")
-
+            create_csv()  
         elif choice == 2:
-            view_expense()
+            add_expense_menu()
         elif choice == 3:
-            calculate_totals()
+            view_expense()
         elif choice == 4:
+            calculate_totals()
+        elif choice == 5:
             print("Exiting from Expense Tracker.")
             break
         else:

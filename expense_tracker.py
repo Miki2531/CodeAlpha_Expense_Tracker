@@ -90,31 +90,3 @@ def calculate_totals():
 
 
     conn.close()
-
-def main():
-    while True:
-        print("\nPersonal Expense Tracker")
-        print("1. Add Expense")
-        print("2. Calculate Totals")
-        print("3. Delete Expense")
-        print("4. Exit")
-
-        choice = int(input("Enter your choice: "))
-        if choice == 1:
-            #Adding your expense
-            add_expense(input_variables)
-            print("Expense Added successfuly!")
-        elif choice == 2:
-            updateExpense(input_variables, id)
-        elif choice == 3:
-            calculate_totals()
-        elif choice == 4:
-            deleteExpense(id)
-        elif choice == 5:
-            print("Exiting from Expense Tracker.")
-            break
-        else:
-            print("Invalid choice. Please choose a valid option")
-
-if __name__ == "__main__":
-    main()
